@@ -1,0 +1,29 @@
+<div class="container mt-5">
+    <h1 class="text-center mb-4"><%= @restaurant['name'] %></h1>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow-sm">
+          <picture>
+            <source media="(max-width: 767px)" srcset="<%= @restaurant['photo']['mobile']['l'] %>">
+            <img src="<%= @restaurant['photo']['pc']['l'] %>" alt="<%= @restaurant['name'] %>" class="card-img-top">
+          </picture>
+          <div class="card-body">
+            <p class="card-text"><strong>ジャンル:</strong> <%= @restaurant['genre']['name'] %>/<%= @restaurant['genre']['catch'] %></p>
+            <p class="card-text"><strong>住所:</strong> <%= @restaurant['address'] %></p>
+            <p class="card-text"><strong>営業時間:</strong> <%= @restaurant['open'] %></p>
+            <p class="card-text"><strong>定休日:</strong> <%= @restaurant['close'] %></p>
+            <p class="card-text"><strong>アクセス:</strong> <%= @restaurant['access'] %></p>
+            <p class="card-text"><strong>予算:</strong> <%= @restaurant['budget']['average'] %></p>
+            <p class="card-text"><strong>クレジットカード支払い:</strong> <%= @restaurant['card'] %></p>
+            <p class="card-text">
+                <strong>さらに詳しく:</strong>
+                <%= link_to @restaurant['urls']['pc'], @restaurant['urls']['pc'], target: '_blank', rel: 'noopener noreferrer', class: 'text-primary' %>
+            </p>
+            <div class="text-center">
+              <%= link_to "戻る", restaurants_search_path, class: "btn btn-secondary mt-3" %>
+            </div>
+          </div>
+        </div>>
+      </div>
+    </div>
+  </div>

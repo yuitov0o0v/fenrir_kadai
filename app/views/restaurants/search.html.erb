@@ -1,0 +1,41 @@
+<div class="container mt-5">
+  <h1 class="text-center mb-4">レストラン検索</h1>
+  <%= form_with url: restaurants_index_path, method: :get, class: "row g-3 justify-content-center" do |form| %>
+    <div class="col-md-4">
+      <%= form.label :genre, "ジャンル", class: "form-label" %>
+      <%= form.select :genre, options_for_select(@genres.map { |g| [g[:name], g[:code]] }), { include_blank: false }, { class: "form-select" } %>
+    </div>
+    <div class="col-md-4">
+      <%= form.label :range, "検索範囲", class: "form-label" %>
+      <%= form.select :range, options_for_select(@ranges.map { |r| [r[:name], r[:code]] }), { include_blank: false }, { class: "form-select" } %>
+    </div>
+    <%= form.hidden_field :lat, id: 'latitude' %>
+    <%= form.hidden_field :lng, id: 'longitude' %>
+    <div class="col-12 text-center">
+      <%= form.submit "検索", class: "btn btn-primary btn-lg mt-3" %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+navigator.geolocation.getCurrentPosition(function(position) {
+    document.getElementById('latitude').value = position.coords.latitude;
+    document.getElementById('longitude').value = position.coords.longitude;
+}, function(error) {
+    let message;
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            message = "位置情報へのアクセスが拒否されました。ブラウザの設定を確認してください。";
+            break;
+        case error.POSITION_UNAVAILABLE:
+            message = "位置情報が取得できませんでした。電波状況を確認してください。";
+            break;
+        case error.TIMEOUT:
+            message = "位置情報の取得がタイムアウトしました。もう一度試してください。";
+            break;
+        default:
+            message = "不明なエラーが発生しました。";
+    }
+    alert(message);
+});
+</script>
